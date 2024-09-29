@@ -94,12 +94,15 @@ body {
 .player-square span {
     display: inline-block;
     padding: 2px 5px;
-    border-radius: 5px;
+    border-radius:5px;
     background-color: rgba(31,68,50,255);
     font-family: 'Bebas Neue', sans-serif;
     font-size: larger;
     color: rgba(214,175,57);
     white-space: nowrap; /* Prevent line breaks */
+}
+.remplacants > .player-square span {
+    border-radius: 0 5px 5px 0;
 }
 
 .remplacants-container{
@@ -127,6 +130,22 @@ body {
     border-radius: 5px;
     text-align: center;
     position: relative;
+}
+
+.substitute-name
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.number-input{
+    width: 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    background-color: rgba(31,68,50,255);
+    border: 0;
+    font-size: larger;
+    color: rgba(214,175,57);
+    border-radius: 5px 0 0 5px;
 }
 
 .player-list {

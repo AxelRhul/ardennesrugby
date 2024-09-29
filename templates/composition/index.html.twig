@@ -129,7 +129,15 @@
                     const player = document.getElementById(playerId);
                     const playerName = player.getAttribute('data-nom').toUpperCase();
                     const playerNumber = square.getAttribute('data-position');
-                    square.innerHTML = `<img src="{{ asset("img/maillot-ardennes-rugby.png") }}" alt="${playerName}"><span>${playerNumber} - ${playerName}</span><button class="delete-button">&times;</button>`;
+                    if (square.closest('.remplacants-container')) {
+                        square.innerHTML = `<img src="{{ asset("img/maillot-ardennes-rugby.png") }}" alt="${playerName}">
+                        <div class="substitute-name">
+                        <input class="number-input" value="${playerNumber}" min="1" max="99"></input><span> - ${playerName}</span>
+                        </div>
+                        <button class="delete-button">&times;</button>`;
+                    } else {
+                        square.innerHTML = `<img src="{{ asset("img/maillot-ardennes-rugby.png") }}" alt="${playerName}"><span>${playerNumber} - ${playerName}</span><button class="delete-button">&times;</button>`;
+                    }
                     square.classList.add('no-border');
 
                     const deleteButton = square.querySelector('.delete-button');
