@@ -1,0 +1,191 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    font-family: 'Bebas Neue', sans-serif;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.background {
+    background-image: url("../../img/terrain-rugby-compostion.jpg");
+    background-size: 100% auto; /* Agrandir légèrement l'image */
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 150px; /* Ajouter un peu de padding interne */
+    position: relative;
+    margin-right: 50px;
+}
+
+.team-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.joueurs-titulaires {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    height: 90%;
+
+}
+
+.ligne {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 50px;
+}
+
+
+/* Ajustements spécifiques pour chaque ligne (maintenant des colonnes) */
+.premiere-ligne {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.deuxieme-ligne {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    gap: 70px;
+}
+
+.troisieme-ligne {
+}
+
+.charniere {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    gap: 70px;
+}
+
+.trois-quarts {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 70px;
+}
+
+.arriere {
+
+}
+
+.player-square {
+    width: 100px;
+    height:100px;
+    border: 3px dashed white;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    font-size: larger;
+    color : rgba(214,175,57);
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-square span {
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background-color: rgba(31,68,50,255);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: larger;
+    color: rgba(214,175,57);
+    white-space: nowrap; /* Prevent line breaks */
+}
+
+.remplacants-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.remplacants {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 45px;
+}
+
+.remplacants > .player-square {
+    margin: 0;
+    padding: 0;
+    width: 70px;
+    height:70px;
+    border: 3px dashed white;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.player-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#player-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-list h2 {
+    margin-bottom: 10px;
+}
+
+.player-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.player-list li {
+    margin-bottom: 5px;
+}
+
+.player-square img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.player-square.drag-over {
+    border-color: green;
+}
+
+.player-square.no-border {
+    border: none;
+}
+
+.delete-button {
+    margin-left: 2px;
+    margin-bottom: 2px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
