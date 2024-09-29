@@ -131,6 +131,9 @@ body {
     text-align: center;
     position: relative;
 }
+.remplacants > .player-square.no-border {
+    border: none;
+}
 
 .substitute-name
 {
