@@ -88,6 +88,24 @@
     </div>
 
     <script>
+        function getPlayerNames() {
+            const playerSquares = document.querySelectorAll('.player-square');
+            const playerNames = [];
+
+            playerSquares.forEach(square => {
+                const playerNameElement = square.querySelector('span');
+                if (playerNameElement) {
+                    const playerName = playerNameElement.textContent.split(' - ')[1];
+                    if (playerName) {
+                        playerNames.push(playerName);
+                    }
+                }
+            });
+
+            return playerNames;
+        }
+
+
         document.addEventListener('DOMContentLoaded', (event) => {
             const players = document.querySelectorAll('.player-list li');
             const squares = document.querySelectorAll('.player-square');
@@ -149,6 +167,9 @@
             });
 
             exportButton.addEventListener('click', () => {
+                const playerNames = getPlayerNames();
+                console.log('Players in the composition:', playerNames);
+
                 // Remove delete buttons and borders for empty squares
                 squares.forEach(square => {
                     const deleteButton = square.querySelector('.delete-button');
