@@ -61,67 +61,69 @@
         <h2>Liste des joueurs</h2>
         <input type="text" id="search-bar" placeholder="Rechercher un joueur...">
         <ul id="player-list">
-            {% set players = [
-                {'nom': 'Dupont', 'prenom': 'Jean', 'id': 'player-1'},
-                {'nom': 'Martin', 'prenom': 'Paul', 'id': 'player-2'},
-                {'nom': 'Bernard', 'prenom': 'Pierre', 'id': 'player-3'},
-                {'nom': 'Dubois', 'prenom': 'Jacques', 'id': 'player-4'},
-                {'nom': 'Moreau', 'prenom': 'Louis', 'id': 'player-5'},
-                {'nom': 'Simon', 'prenom': 'Henri', 'id': 'player-6'},
-                {'nom': 'Lefevre', 'prenom': 'Julien', 'id': 'player-7'},
-                {'nom': 'Michel', 'prenom': 'Luc', 'id': 'player-8'},
-                {'nom': 'Garcia', 'prenom': 'Antoine', 'id': 'player-9'},
-                {'nom': 'Petit', 'prenom': 'Marc', 'id': 'player-10'},
-                {'nom': 'Roux', 'prenom': 'Nicolas', 'id': 'player-11'},
-                {'nom': 'Blanc', 'prenom': 'Laurent', 'id': 'player-12'},
-                {'nom': 'Muller', 'prenom': 'François', 'id': 'player-13'},
-                {'nom': 'Fontaine', 'prenom': 'Charles', 'id': 'player-14'},
-                {'nom': 'Chevalier', 'prenom': 'Philippe', 'id': 'player-15'}
-            ] %}
             {% for player in players %}
-                <li draggable="true" id="{{ player.id }}" data-nom="{{ player.nom }}" data-prenom="{{ player.prenom }}">
-                    {{ player.nom }} {{ player.prenom }}
+                <li draggable="true" id="{{ player.id }}" data-nom="{{ player.lastname }}" data-prenom="{{ player.firstname }}">
+                    {{ player.lastname }} {{ player.firstname }}
                 </li>
             {% endfor %}
+            <div class="pagination-controls">
+                <button id="prev-page" disabled>Précédent</button>
+                <span id="page-info"></span>
+                <button id="next-page">Suivant</button>
+            </div>
             <button id="export-button">Exporter la composition</button>
         </ul>
     </div>
 
     <script>
-        function getPlayerNames() {
-            const playerSquares = document.querySelectorAll('.player-square');
-            const playerNames = [];
-
-            playerSquares.forEach(square => {
-                const playerNameElement = square.querySelector('span');
-                if (playerNameElement) {
-                    const playerName = playerNameElement.textContent.split(' - ')[1];
-                    if (playerName) {
-                        playerNames.push(playerName);
-                    }
-                }
-            });
-
-            return playerNames;
-        }
-
-
         document.addEventListener('DOMContentLoaded', (event) => {
             const players = document.querySelectorAll('.player-list li');
             const squares = document.querySelectorAll('.player-square');
             const searchBar = document.getElementById('search-bar');
             const exportButton = document.getElementById('export-button');
+            const prevPageButton = document.getElementById('prev-page');
+            const nextPageButton = document.getElementById('next-page');
+            const pageInfo = document.getElementById('page-info');
+
+            const playersPerPage = 25;
+            let currentPage = 1;
+            let filteredPlayers = Array.from(players);
+            const totalPages = () => Math.ceil(filteredPlayers.length / playersPerPage);
+
+            function updatePlayerList() {
+                const start = (currentPage - 1) * playersPerPage;
+                const end = start + playersPerPage;
+
+                players.forEach(player => player.style.display = 'none');
+                filteredPlayers.slice(start, end).forEach(player => player.style.display = '');
+
+                pageInfo.textContent = `Page ${currentPage} sur ${totalPages()}`;
+                prevPageButton.disabled = currentPage === 1;
+                nextPageButton.disabled = currentPage === totalPages();
+            }
+
+            prevPageButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updatePlayerList();
+                }
+            });
+
+            nextPageButton.addEventListener('click', () => {
+                if (currentPage < totalPages()) {
+                    currentPage++;
+                    updatePlayerList();
+                }
+            });
 
             searchBar.addEventListener('input', (e) => {
                 const searchTerm = e.target.value.toLowerCase();
-                players.forEach(player => {
+                filteredPlayers = Array.from(players).filter(player => {
                     const playerName = player.getAttribute('data-nom').toLowerCase() + ' ' + player.getAttribute('data-prenom').toLowerCase();
-                    if (playerName.includes(searchTerm)) {
-                        player.style.display = '';
-                    } else {
-                        player.style.display = 'none';
-                    }
+                    return playerName.includes(searchTerm);
                 });
+                currentPage = 1; // Reset to first page on search
+                updatePlayerList();
             });
 
             players.forEach(player => {
@@ -145,14 +147,14 @@
                     square.classList.remove('drag-over');
                     const playerId = e.dataTransfer.getData('text/plain');
                     const player = document.getElementById(playerId);
-                    const playerName = player.getAttribute('data-nom').toUpperCase();
+                    const playerName = player.getAttribute('data-prenom').charAt(0).toUpperCase() + "." + player.getAttribute('data-nom').toUpperCase();
                     const playerNumber = square.getAttribute('data-position');
                     if (square.closest('.remplacants-container')) {
                         square.innerHTML = `<img src="{{ asset("img/maillot-ardennes-rugby.png") }}" alt="${playerName}">
-                        <div class="substitute-name">
-                        <input class="number-input" value="${playerNumber}" min="1" max="99"></input><span> - ${playerName}</span>
-                        </div>
-                        <button class="delete-button">&times;</button>`;
+                <div class="substitute-name">
+                <input class="number-input" value="${playerNumber}" min="1" max="99"></input><span> - ${playerName}</span>
+                </div>
+                <button class="delete-button">&times;</button>`;
                     } else {
                         square.innerHTML = `<img src="{{ asset("img/maillot-ardennes-rugby.png") }}" alt="${playerName}"><span>${playerNumber} - ${playerName}</span><button class="delete-button">&times;</button>`;
                     }
@@ -169,6 +171,24 @@
             exportButton.addEventListener('click', () => {
                 const playerNames = getPlayerNames();
                 console.log('Players in the composition:', playerNames);
+
+                // Stocker les valeurs originales des inputs et leurs parents
+                const originalInputValues = {};
+                const numberInputs = document.querySelectorAll('.number-input');
+                numberInputs.forEach(input => {
+                    originalInputValues[input.id] = {
+                        value: input.value,
+                        parent: input.parentNode // Stocker le parent de l'input
+                    };
+                });
+
+                // Remplacer les inputs par du texte
+                numberInputs.forEach(input => {
+                    const playerNameSpan = input.nextElementSibling;
+                    playerNameSpan.textContent = input.value + " - " + playerNameSpan.textContent.split(' - ')[1];
+                    playerNameSpan.style.borderRadius = "5px";
+                    input.remove();
+                });
 
                 // Remove delete buttons and borders for empty squares
                 squares.forEach(square => {
@@ -198,8 +218,44 @@
                             square.style.border = '3px dashed white';
                         }
                     });
+
+                    // Restaurer les inputs avec leurs valeurs originales
+                    for (const inputId in originalInputValues) {
+                        const { value, parent } = originalInputValues[inputId];
+                        const playerNameSpan = parent.querySelector('span'); // Retrouver le span dans le parent
+                        const playerName = playerNameSpan.textContent.split(' - ')[1];
+                        playerNameSpan.textContent = " - " + playerName;
+                        playerNameSpan.style.borderRadius = "0 5px 5px 0";
+                        const newInput = document.createElement('input');
+                        newInput.classList.add('number-input');
+                        newInput.value = value;
+                        newInput.min = 1;
+                        newInput.max = 99;
+                        newInput.style.borderRadius = "5px 0 0 5px";
+                        parent.insertBefore(newInput, playerNameSpan);
+                    }
                 });
             });
+
+            function getPlayerNames() {
+                const playerSquares = document.querySelectorAll('.player-square');
+                const playerNames = [];
+
+                playerSquares.forEach(square => {
+                    const playerNameElement = square.querySelector('span');
+                    if (playerNameElement) {
+                        const playerName = playerNameElement.textContent.split(' - ')[1];
+                        if (playerName) {
+                            playerNames.push(playerName);
+                        }
+                    }
+                });
+
+                return playerNames;
+            }
+
+            // Initialize player list display
+            updatePlayerList();
         });
     </script>
 {% endblock %}
