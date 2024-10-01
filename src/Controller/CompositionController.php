@@ -9,7 +9,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CompositionController extends AbstractController
 {
-    #[Route('/composition', name: 'app_composition')]
+    ##[Route('/composition', name: 'app_composition')]
+    #[Route('/', name: 'app_composition')]
     public function index(PlayerRepository $playerRepository): Response
     {
 
