@@ -1,9 +1,18 @@
 body {
-    min-height: 100vh;
+    /*min-height: 100vh;*/
     display: flex;
     font-family: 'Bebas Neue', sans-serif;
     justify-content: space-between;
-    height: 100%;
+    /*height: 100%;*/
+    width: 100%;
+}
+
+.team-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
 }
 
 .background {
@@ -14,23 +23,17 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 150px; /* Ajouter un peu de padding interne */
     position: relative;
-    margin-right: 50px;
-}
-
-.team-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    width: 100%;
+    height: 80%;
 }
 
 .joueurs-titulaires {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 15px;
-    height: 90%;
+    height: 70%;
+    width: 70%;
 
 }
 
@@ -38,7 +41,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    margin-left: 50px;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -52,7 +56,7 @@ body {
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;
-    gap: 70px;
+    gap: 25%;
 }
 
 .troisieme-ligne {
@@ -62,13 +66,13 @@ body {
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;
-    gap: 70px;
+    gap: 15%;
 }
 
 .trois-quarts {
     display: flex;
     flex-direction: column-reverse;
-    gap: 70px;
+    gap: 5%;
 }
 
 .arriere {
@@ -76,19 +80,24 @@ body {
 }
 
 .player-square {
-    width: 100px;
-    height:100px;
+    width: 60%; /* Ou une valeur fixe en pixels si vous préférez */
+    aspect-ratio: 1 / 1; /* Maintient le rapport 1:1 (carré) */
+    height:auto;
     border: 3px dashed white;
     border-radius: 5px;
     text-align: center;
     position: relative;
     font-size: larger;
     color : rgba(214,175,57);
-    margin-bottom: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.player-square.no-border > img
+{
+    width: 100%;
 }
 
 .player-square span {
@@ -101,61 +110,82 @@ body {
     color: rgba(214,175,57);
     white-space: nowrap; /* Prevent line breaks */
 }
-.remplacants > .player-square span {
-    border-radius: 0 5px 5px 0;
-}
 
 .remplacants-container{
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding-right: 50px;
-    padding-left: 50px;
+    width: 80%;
+    height: 20%;
 }
 
 .remplacants {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 45px;
+    width: 100%;
+    height: 60%;
+    gap: 5%;
 }
 
 .remplacants > .player-square {
     margin: 0;
     padding: 0;
-    width: 70px;
-    height:70px;
+    width: 10%;
+    aspect-ratio: 1 / 1;
     border: 3px dashed white;
     border-radius: 5px;
     text-align: center;
     position: relative;
 }
+
+.remplacants > .player-square span {
+    border-radius: 0 5px 5px 0;
+}
+
 .remplacants > .player-square.no-border {
     border: none;
+    width: 20%;
+    /*width: 100%;*/
 }
 
 .substitute-name
 {
     display: flex;
     flex-direction: row;
+    width: 100%;
+}
+
+.substitute-name > span {
+    font-size: 70%;
 }
 
 .number-input{
-    width: 18px;
     font-family: 'Bebas Neue', sans-serif;
     background-color: rgba(31,68,50,255);
     border: 0;
-    font-size: larger;
     color: rgba(214,175,57);
     border-radius: 5px 0 0 5px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .player-list {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 250px;
+    width: 20%;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 5px;
@@ -182,8 +212,8 @@ body {
 }
 
 .player-square img {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     object-fit: cover;
 }
 .player-square.drag-over {
