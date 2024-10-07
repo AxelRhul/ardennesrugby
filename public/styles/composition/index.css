@@ -99,11 +99,6 @@ body {
     align-items: center;
 }
 
-.player-square.no-border > img
-{
-    width: 100%;
-}
-
 .player-square span {
     display: inline-block;
     padding: 2px 5px;
@@ -123,10 +118,20 @@ body {
     height: 80%;
 }
 
+.remplacants > .player-square.no-border img {
+    width: auto;
+    height: 100%;
+}
+
+.player-square img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+}
+
 .remplacants {
     display: flex;
     flex-direction: column;
-    /*justify-content: center;*/
     align-items: center;
     height: 100%;
     gap: 5%;
@@ -136,7 +141,6 @@ body {
     margin: 0;
     padding: 0;
     height: 10%;
-    aspect-ratio: 1 / 1;
     width: auto ;
     border: 3px dashed white;
     border-radius: 5px;
@@ -144,49 +148,30 @@ body {
     position: relative;
 }
 
-.remplacants > .player-square span {
-    border-radius: 0 5px 5px 0;
-}
-
 .remplacants > .player-square.no-border {
     border: none;
-    width: 20%;
-    /*width: 100%;*/
 }
 
 .substitute-name
 {
     display: flex;
     flex-direction: row;
-    width: 100%;
 }
 
-.substitute-name > span {
-    font-size: 70%;
+.substitute-name > span
+{
+    border-radius: 0 5px 5px 0;
 }
 
 .number-input{
+    width: 18px;
     font-family: 'Bebas Neue', sans-serif;
     background-color: rgba(31,68,50,255);
     border: 0;
+    font-size: larger;
     color: rgba(214,175,57);
     border-radius: 5px 0 0 5px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .player-list {
     display: flex;
@@ -219,17 +204,13 @@ body {
     margin-bottom: 5px;
 }
 
-.player-square img {
-    width: 80%;
-    height: 80%;
-    object-fit: cover;
-}
 .player-square.drag-over {
     border-color: green;
 }
 
 .player-square.no-border {
     border: none;
+    width: 100%;
 }
 
 .delete-button {
