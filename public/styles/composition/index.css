@@ -1,5 +1,4 @@
 body {
-    min-height: 100vh;
     display: flex;
     font-family: 'Bebas Neue', sans-serif;
     justify-content: space-between;
@@ -8,13 +7,13 @@ body {
 
 .background {
     background-image: url("../../img/terrain-rugby-compostion.jpg");
-    background-size: 100% auto; /* Agrandir légèrement l'image */
+    background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 150px; /* Ajouter un peu de padding interne */
+    padding: 150px;
     position: relative;
     margin-right: 50px;
 }
