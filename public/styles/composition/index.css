@@ -11,7 +11,7 @@ body {
     height: 100%;
     width: 100%;
     background-color: skyblue;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
 .team-container {
