@@ -1,0 +1,49 @@
+.navbar {
+    top: 0;
+    left: 0;
+    position: fixed;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    background-color: rgba(207, 219, 213, 0.5);
+    backdrop-filter: blur(10px); /* Blur effect */
+    width: 100%;
+
+}
+
+.logo-container {
+    height: 100%;
+    width: 10%;
+}
+
+
+
+.logo-container > img {
+    height: 90%;
+    aspect-ratio: 1/1;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 90%;
+}
+
+.nav-links > li > a {
+    color: rgba(214,175,57);
+    text-decoration: none;
+}
+
+.nav-links > li > a:hover {
+    text-decoration: none;
+    color: rgba(214,175,57);
+}
+
+.fake-navbar {
+    height: 10%;
+    width: 100%;
+}

@@ -18,5 +18,11 @@ class CompositionController extends AbstractController
         return $this->render('composition/index.html.twig', [
             'players' => $playerRepository->findAllSortedByName(),
         ]);
+
+    }#[Route('/test', name: 'test')]
+    public function test(): Response
+    {
+        return $this->render('composition/test.html.twig', [
+        ]);
     }
 }

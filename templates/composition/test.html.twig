@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div style="height: 2000px;">
+        <h1>Test Page</h1>
+        <p>This is a long page to test the navbar with scrolling.</p>
+        {% for i in 1..100 %}
+            <p>Paragraph {{ i }}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block title %}
+    Test Page
+{% endblock %}
