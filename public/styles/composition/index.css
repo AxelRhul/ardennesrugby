@@ -1,216 +1,109 @@
 html, body {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    /*min-height: 100vh;*/
     display: flex;
+    flex-direction: row;
     font-family: 'Bebas Neue', sans-serif;
-    justify-content: space-between;
     height: 100%;
     width: 100%;
+    background-color: skyblue;
+    /*overflow: hidden;*/
 }
 
 .team-container {
+    width: 80%;
+    height: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    width: 80%;
 }
 
-.background {
+.starting-players {
+    height: 99%;
+    width: 85%;
     background-image: url("../../img/terrain-rugby-compostion.jpg");
-    background-size: 100% auto; /* Agrandir légèrement l'image */
+    background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: center;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 100%;
-    height: 80%;
+    flex-direction: row;
+    padding-right: 10%;
+    padding-left: 10%;
 }
 
-.joueurs-titulaires {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 15px;
-    height: 70%;
-    width: 70%;
-
-}
-
-.ligne {
+.line {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     margin: 0;
     padding: 0;
+    width: calc(100% / 6);
 }
 
-
-/* Ajustements spécifiques pour chaque ligne (maintenant des colonnes) */
-.premiere-ligne {
+.first-line {
     display: flex;
     flex-direction: column-reverse;
+    gap: 10%;
 }
 
-.deuxieme-ligne {
+.second-line {
     display: flex;
     flex-direction: column-reverse;
-    justify-content: center;
-    gap: 25%;
+    gap: 10%;
 }
 
-.troisieme-ligne {
-}
-
-.charniere {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
+.third-line {
     gap: 15%;
 }
 
-.trois-quarts {
+.hinge {
+    gap: 5%;
+}
+
+.backs {
     display: flex;
     flex-direction: column-reverse;
     gap: 5%;
 }
 
-.arriere {
-
-}
-
 .player-square {
-    width: 60%; /* Ou une valeur fixe en pixels si vous préférez */
-    aspect-ratio: 1 / 1; /* Maintient le rapport 1:1 (carré) */
-    height:auto;
+    width: 60%;
+    aspect-ratio:  1 / 1;
+    height: auto;
     border: 3px dashed white;
     border-radius: 5px;
-    text-align: center;
-    position: relative;
-    font-size: larger;
-    color : rgba(214,175,57);
+}
+
+.no-border {
+    border: none!important;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
-.player-square span {
-    display: inline-block;
-    padding: 2px 5px;
-    border-radius:5px;
-    background-color: rgba(31,68,50,255);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: larger;
-    color: rgba(214,175,57);
-    white-space: nowrap; /* Prevent line breaks */
-}
-
-.remplacants-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-    height: 80%;
-}
-
-.remplacants > .player-square.no-border img {
-    width: auto;
-    height: 100%;
-}
-
-.player-square img {
-    width: 80%;
-    height: 80%;
+.player-img {
+    width: 120%;
     object-fit: cover;
 }
 
-.remplacants {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    gap: 5%;
-}
-
-.remplacants > .player-square {
-    margin: 0;
-    padding: 0;
-    height: 10%;
-    width: auto ;
-    border: 3px dashed white;
-    border-radius: 5px;
-    text-align: center;
-    position: relative;
-}
-
-.remplacants > .player-square.no-border {
-    border: none;
-}
-
-.substitute-name
-{
-    display: flex;
-    flex-direction: row;
-}
-
-.substitute-name > span
-{
-    border-radius: 0 5px 5px 0;
-}
-
-.number-input{
-    width: 18px;
-    font-family: 'Bebas Neue', sans-serif;
+.player-name {
     background-color: rgba(31,68,50,255);
-    border: 0;
-    font-size: larger;
     color: rgba(214,175,57);
-    border-radius: 5px 0 0 5px;
-}
-
-.player-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 20%;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
     border-radius: 5px;
-    height: 100%;
-}
-
-#player-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.player-list h2 {
-    margin-bottom: 10px;
-}
-
-.player-list ul {
-    list-style: none;
-    padding: 0;
-}
-
-.player-list li {
-    margin-bottom: 5px;
-}
-
-.player-square.drag-over {
-    border-color: green;
-}
-
-.player-square.no-border {
-    border: none;
-    width: 100%;
+    font-family: 'Bebas Neue', sans-serif;
+    border: 0;
+    padding: 2px 5px;
+    font-size: larger;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .delete-button {
@@ -230,3 +123,117 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.substitutes-container {
+    height: 99%;
+    width: 15%;
+    text-align: center;
+}
+
+.substitutes-title {
+    height: 5%;
+    width: 100%;
+    margin: 0;
+}
+
+.substitutes {
+    height: 95%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.substitutes-square {
+    height: calc((100% / 7)/2);
+    aspect-ratio:  1 / 1;
+    width: auto;
+    border: 3px dashed white;
+    border-radius: 5px;
+}
+
+.substitutes-square.no-border {
+    width: 100%!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.substitute-img {
+    width: 45%;
+    object-fit: cover;
+}
+
+.substitute-player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.substitute-number-input {
+    border: 0;
+    border-radius: 5px 0 0 5px;
+    background-color: rgba(31,68,50,255);
+    color: rgba(214,175,57);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: larger;
+    width: 2ch;
+    padding: 2px 5px;
+    text-align: center;
+}
+
+.substitute-name {
+    border-radius: 0 5px 5px 0;
+    background-color: rgba(31,68,50,255);
+    color: rgba(214,175,57);
+    padding: 2px 5px 2px 0px;
+    font-size: larger;
+    white-space: nowrap;
+
+}
+
+.player-list {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.player-list-title {
+    margin: 0;
+    padding: 0;
+    height: 5%;
+}
+
+.player-search {
+    border: 0;
+    border-radius: 5px;
+    height: 5%;
+    text-align: center;
+}
+
+#player-list {
+    height: 80%;
+    margin: 2% 0 0;
+}
+
+.player-list ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.player-list li {
+    margin-bottom: 5px;
+}
+
+ #export-button {
+     height: 5%;
+ }
