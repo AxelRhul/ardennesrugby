@@ -3,14 +3,15 @@
 {% block body %}
     <h1>Players</h1>
 
-    <button id="goto-players-list" onclick="window.location.href='{{ path('app_composition') }}'">Aller à la liste des joueurs</button>
+    <a href="{{ path('app_composition') }}">Retour à la composition</a>
 
     <a href="{{ path('player_new') }}">Create new</a>
 
-    <table>
+    <input type="text" id="search" placeholder="Search players..." onkeyup="filterPlayers()">
+
+    <table id="playersTable">
         <thead>
         <tr>
-            <th>Id</th>
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Actions</th>
@@ -19,7 +20,6 @@
         <tbody>
         {% for player in players %}
             <tr>
-                <td>{{ player.id }}</td>
                 <td>{{ player.firstname }}</td>
                 <td>{{ player.lastname }}</td>
                 <td>
@@ -33,4 +33,22 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <script>
+        function filterPlayers() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const table = document.getElementById('playersTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < rows.length; i++) {
+                const firstName = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
+                const lastName = rows[i].getElementsByTagName('td')[1].textContent.toLowerCase();
+                if (firstName.includes(searchInput) || lastName.includes(searchInput)) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
 {% endblock %}
