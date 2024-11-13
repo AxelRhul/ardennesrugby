@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Players</h1>
+
+    <a href="{{ path('player_new') }}">Create new</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for player in players %}
+            <tr>
+                <td>{{ player.id }}</td>
+                <td>{{ player.firstname }}</td>
+                <td>{{ player.lastname }}</td>
+                <td>
+                    <a href="{{ path('player_edit', {'id': player.id}) }}">edit</a>
+                    <form method="post" action="{{ path('player_delete', {'id': player.id}) }}" style="display:inline-block;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ player.id) }}">
+                        <button type="submit">delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

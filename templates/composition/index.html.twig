@@ -18,7 +18,7 @@
         // drag and drop for players
         document.addEventListener('DOMContentLoaded', (event) => {
             const players = document.querySelectorAll('.player-list li');
-            const squares = document.querySelectorAll('.player-square');
+            const squares = document.querySelectorAll('.player-square, .substitutes-square');
 
             players.forEach(player => {
                 player.addEventListener('dragstart', (e) => {
@@ -43,7 +43,10 @@
                     const player = document.getElementById(playerId);
                     const playerName = player.getAttribute('data-prenom').charAt(0).toUpperCase() + "." + player.getAttribute('data-nom').toUpperCase();
                     const playerNumber = square.getAttribute('data-position');
-                    square.innerHTML = `<img class="player-img" src="{{ asset("img/maillot-ardennes-rugby.png") }}" alt="${playerName}"><span class="player-name">${playerNumber} - ${playerName}</span><button class="delete-button">&times;</button>`;
+                    const playerImage = player.getAttribute('data-image');
+                    const imageUrl = playerImage ? `{{ asset('img/player/') }}${playerImage}` : `{{ asset('img/maillot-ardennes-rugby.png') }}`;
+
+                    square.innerHTML = `<img class="player-img" src="${imageUrl}" alt="${playerName}"><span class="player-name">${playerNumber} - ${playerName}</span><button class="delete-button">&times;</button>`;
                     square.classList.add('no-border');
 
                     const deleteButton = square.querySelector('.delete-button');
@@ -148,7 +151,7 @@
         <input class="player-search" type="text" id="search-bar" placeholder="Rechercher un joueur...">
         <ul id="player-list">
             {% for player in players %}
-                <li draggable="true" id="{{ player.id }}" data-nom="{{ player.lastname }}" data-prenom="{{ player.firstname }}">
+                <li draggable="true" id="{{ player.id }}" data-nom="{{ player.lastname }}" data-prenom="{{ player.firstname }}" data-image="{{ player.imageName }}">
                     {{ player.lastname }} {{ player.firstname }}
                 </li>
             {% endfor %}
