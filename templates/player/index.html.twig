@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Players</h1>
 
-    <a href="{{ path('app_composition') }}">Retour à la composition</a>
+    <button id="goto-players-list" onclick="window.location.href='{{ path('app_composition') }}'">Aller à la liste des joueurs</button>
 
     <a href="{{ path('player_new') }}">Create new</a>
 
