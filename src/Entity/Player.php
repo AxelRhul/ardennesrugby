@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
+#[Vich\Uploadable]
 class Player
 {
     #[ORM\Id]

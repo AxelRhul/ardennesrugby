@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ form.vars.value.id ? 'Edit Player' : 'Create Player' }}</h1>
+
+    {{ form_start(form) }}
+    {% if form.vars.value.imageName %}
+        <div>
+            <img src="{{ asset('img/player/' ~ form.vars.value.imageName) }}" alt="Player Image" style="max-width: 200px; max-height: 200px;">
+        </div>
+    {% endif %}
+    {{ form_widget(form) }}
+    <button>{{ form.vars.value.id ? 'Update' : 'Create' }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('player_index') }}">back to list</a>
+{% endblock %}
