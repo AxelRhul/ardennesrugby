@@ -87,11 +87,14 @@
                     const player = document.getElementById(playerId);
                     const playerName = player.getAttribute('data-prenom').charAt(0).toUpperCase() + "." + player.getAttribute('data-nom').toUpperCase();
                     const playerNumber = square.getAttribute('data-position');
-                    square.innerHTML = `<img class="substitute-img" src="{{ asset("img/maillot-ardennes-rugby.png") }}" alt="${playerName}">
-                    <div class="substitute-player">
-                        <input class="substitute-number-input" value="${playerNumber}" min="1" max="99"></input><span class="substitute-name"> - ${playerName}</span>
-                    </div>
-                    <button class="delete-button">&times;</button>`;
+                    const playerImage = player.getAttribute('data-image');
+                    const imageUrl = playerImage ? `{{ asset('img/player/') }}${playerImage}` : `{{ asset('img/maillot-ardennes-rugby.png') }}`;
+
+                    square.innerHTML = `<img class="substitute-img" src="${imageUrl}" alt="${playerName}">
+                <div class="substitute-player">
+                    <input class="substitute-number-input" value="${playerNumber}" min="1" max="99"></input><span class="substitute-name"> - ${playerName}</span>
+                </div>
+                <button class="delete-button">&times;</button>`;
                     square.classList.add('no-border');
 
                     const deleteButton = square.querySelector('.delete-button');
