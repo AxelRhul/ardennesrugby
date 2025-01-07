@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Installer les dépendances Composer
+echo "Installation des dépendances Composer..."
+composer install
+
 echo "Démarrage du script d'entrée..."
 
 until php bin/console doctrine:query:sql "SELECT 1"; do
@@ -8,10 +12,6 @@ until php bin/console doctrine:query:sql "SELECT 1"; do
 done
 
 echo "Connexion à la base de données établie."
-
-# Installer les dépendances Composer
-echo "Installation des dépendances Composer..."
-composer install --no-interaction --optimize-autoloader
 
 # Créer la base de données (si nécessaire)
 echo "Création de la base de données si elle n'existe pas..."
