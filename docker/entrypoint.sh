@@ -25,6 +25,8 @@ php bin/console doctrine:migrations:migrate --no-interaction
 # echo "Vidage du cache..."
 # php bin/console cache:clear
 
+chmod -R 777 public/img/player/ 
+
 # Lancer la commande par défaut (dans ce cas, php-fpm)
 echo "Lancement de la commande par défaut..."
 exec "$@"

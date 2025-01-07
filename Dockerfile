@@ -23,6 +23,14 @@ COPY . /var/www/html
 # Copy existing application directory permissions
 COPY --chown=www-data:www-data . /var/www/html
 
+RUN chown -R www-data:www-data /var/www/html/public && \
+    chmod -R 775 /var/www/html/public
+
+# Set permissions for the img/player directory
+RUN chown -R www-data:www-data /var/www/html/public/img/player && \
+    chmod -R 775 /var/www/html/public/img/player
+
+
 COPY ./docker/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
