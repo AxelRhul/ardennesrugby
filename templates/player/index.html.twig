@@ -1,19 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/player/index.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-    <h1>Players</h1>
+    <h1 class="page-title">Liste des joueurs</h1>
 
-    <a href="{{ path('app_composition') }}">Retour à la composition</a>
+    <div class="button-group">
+        <a href="{{ path('app_composition') }}">Retour à la composition</a>
+        <a href="{{ path('player_new') }}">Crée un nouveau joueur</a>
+    </div>
 
-    <a href="{{ path('player_new') }}">Create new</a>
+    <input type="text" id="search" class="search-input" placeholder="Rechercher un joueur..." onkeyup="filterPlayers()">
 
-    <input type="text" id="search" placeholder="Search players..." onkeyup="filterPlayers()">
-
-    <table id="playersTable">
+    <table id="playersTable" class="players-table">
         <thead>
         <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
+            <th>Prénom</th>
+            <th>Nom</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -23,10 +30,10 @@
                 <td>{{ player.firstname }}</td>
                 <td>{{ player.lastname }}</td>
                 <td>
-                    <a href="{{ path('player_edit', {'id': player.id}) }}">edit</a>
-                    <form method="post" action="{{ path('player_delete', {'id': player.id}) }}" style="display:inline-block;">
+                    <a href="{{ path('player_edit', {'id': player.id}) }}">Modifier</a>
+                    <form method="post" action="{{ path('player_delete', {'id': player.id}) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ player.id) }}">
-                        <button type="submit">delete</button>
+                        <button type="submit">Supprimer</button>
                     </form>
                 </td>
             </tr>
