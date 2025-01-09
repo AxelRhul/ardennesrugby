@@ -16,11 +16,19 @@
 
     <input type="text" id="search" class="search-input" placeholder="Rechercher un joueur..." onkeyup="filterPlayers()">
 
+    <select id="categoryFilter" class="category-filter" onchange="filterPlayers()">
+        <option value="">Toutes les catégories</option>
+        {% for category in categories %}
+            <option value="{{ category.name }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+
     <table id="playersTable" class="players-table">
         <thead>
         <tr>
             <th>Prénom</th>
             <th>Nom</th>
+            <th>Catégories</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -29,6 +37,11 @@
             <tr>
                 <td>{{ player.firstname }}</td>
                 <td>{{ player.lastname }}</td>
+                <td>
+                    {% for category in player.category %}
+                        {{ category.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('player_edit', {'id': player.id}) }}">Modifier</a>
                     <form method="post" action="{{ path('player_delete', {'id': player.id}) }}">
@@ -44,13 +57,17 @@
     <script>
         function filterPlayers() {
             const searchInput = document.getElementById('search').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value.toLowerCase();
             const table = document.getElementById('playersTable');
             const rows = table.getElementsByTagName('tr');
 
             for (let i = 1; i < rows.length; i++) {
                 const firstName = rows[i].getElementsByTagName('td')[0].textContent.toLowerCase();
                 const lastName = rows[i].getElementsByTagName('td')[1].textContent.toLowerCase();
-                if (firstName.includes(searchInput) || lastName.includes(searchInput)) {
+                const categories = rows[i].getElementsByTagName('td')[2].textContent.toLowerCase();
+
+                if ((firstName.includes(searchInput) || lastName.includes(searchInput)) &&
+                    (categoryFilter === '' || categories.includes(categoryFilter))) {
                     rows[i].style.display = '';
                 } else {
                     rows[i].style.display = 'none';

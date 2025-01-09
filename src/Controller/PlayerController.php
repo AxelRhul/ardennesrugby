@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Player;
 use App\Form\PlayerType;
+use App\Repository\CategoryRepository;
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,11 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlayerController extends AbstractController
 {
     #[Route('/', name: 'player_index', methods: ['GET'])]
-    public function index(PlayerRepository $playerRepository): Response
+    public function index(PlayerRepository $playerRepository,CategoryRepository $categoryRepository): Response
     {
         $players = $playerRepository->findBy([], ['lastname' => 'ASC']);
         return $this->render('player/index.html.twig', [
             'players' => $players,
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
@@ -44,7 +46,7 @@ class PlayerController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'player_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Player $player, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Player $player, EntityManagerInterface $entityManager,CategoryRepository $categoryRepository): Response
     {
         $form = $this->createForm(PlayerType::class, $player);
         $form->handleRequest($request);
@@ -58,6 +60,7 @@ class PlayerController extends AbstractController
         return $this->render('player/edit.html.twig', [
             'player' => $player,
             'form' => $form->createView(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
