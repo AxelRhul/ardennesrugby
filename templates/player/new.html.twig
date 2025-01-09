@@ -1,17 +1,39 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/player/edit.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-    <h1>{{ form.vars.value.id ? 'Edit Player' : 'Create Player' }}</h1>
+    <div class="form-container">
+        <h1>{{ form.vars.value.id ? 'Modifier Joueur' : 'Créer Joueur' }}</h1>
 
-    {{ form_start(form) }}
-    {% if form.vars.value.imageName %}
-        <div>
-            <img src="{{ asset('img/player/' ~ form.vars.value.imageName) }}" alt="Player Image" style="max-width: 200px; max-height: 200px;">
+        {{ form_start(form) }}
+        {% if form.vars.value.imageName %}
+            <div class="image-preview">
+                <img src="{{ asset('img/player/' ~ form.vars.value.imageName) }}" alt="Player Image" style="max-width: 200px; max-height: 200px;">
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <label>Prénom</label>
+            {{ form_widget(form.firstname) }}
+            {{ form_errors(form.firstname) }}
         </div>
-    {% endif %}
-    {{ form_widget(form) }}
-    <button>{{ form.vars.value.id ? 'Update' : 'Create' }}</button>
-    {{ form_end(form) }}
+        <div class="form-group">
+            <label>Nom</label>
+            {{ form_widget(form.lastname) }}
+            {{ form_errors(form.lastname) }}
+        </div>
+        <div class="form-group">
+            <label>Image</label>
+            {{ form_widget(form.imageFile) }}
+            {{ form_errors(form.imageFile) }}
+        </div>
+        <button type="submit">{{ form.vars.value.id ? 'Modifier' : 'Créer' }}</button>
+        {{ form_end(form) }}
 
-    <a href="{{ path('player_index') }}">back to list</a>
+        <a href="{{ path('player_index') }}" class="back-link">Retour à la liste</a>
+    </div>
 {% endblock %}

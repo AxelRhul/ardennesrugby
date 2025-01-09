@@ -1,0 +1,94 @@
+/* Styles pour la page de création/édition de joueur (forms.css) */
+
+body {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.form-container {
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ecf0f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.form-container .form-group {
+    margin-bottom: 15px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.form-container input[type="text"],
+.form-container input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ecf0f1;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.form-container input[type="file"] {
+    padding: 5px; /* Ajustement pour le champ de fichier */
+}
+
+.form-container button[type="submit"] {
+    background-color: #3498db;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: #2980b9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.form-container .back-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.form-container .back-link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.form-container .form-errors {
+    color: #e74c3c;
+    margin-bottom: 10px;
+}
+
+.form-container .form-errors li {
+    list-style: none;
+}
+
+.form-container .image-preview {
+    margin-bottom: 15px;
+    text-align: center;
+}
