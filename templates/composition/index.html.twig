@@ -152,9 +152,15 @@
     <div class="player-list">
         <h2 class="player-list-title">Liste des joueurs</h2>
         <input class="player-search" type="text" id="search-bar" placeholder="Rechercher un joueur...">
+        <select id="category-filter">
+            <option value="all">Toutes les catégories</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
         <ul id="player-list">
             {% for player in players %}
-                <li draggable="true" id="{{ player.id }}" data-nom="{{ player.lastname }}" data-prenom="{{ player.firstname }}" data-image="{{ player.imageName }}">
+                <li draggable="true" id="{{ player.id }}" data-nom="{{ player.lastname }}" data-prenom="{{ player.firstname }}" data-image="{{ player.imageName }}" data-categories="{% for category in player.category %}{{ category.id }}{% if not loop.last %},{% endif %}{% endfor %}">
                     {{ player.lastname }} {{ player.firstname }}
                 </li>
             {% endfor %}

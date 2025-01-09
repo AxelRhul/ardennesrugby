@@ -4,10 +4,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const nextPageButton = document.getElementById('next-page');
     const pageInfo = document.getElementById('page-info');
     const playerList = document.getElementById('player-list');
+    const categoryFilter = document.getElementById('category-filter');
 
     const playerItemHeight = players[0].offsetHeight;
     const listHeight = playerList.offsetHeight;
-    const playersPerPage = Math.floor(listHeight / (playerItemHeight*1.5));
+    const playersPerPage = Math.floor(listHeight / (playerItemHeight * 1.5));
 
     let currentPage = 1;
     let filteredPlayers = Array.from(players);
@@ -37,6 +38,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
             currentPage++;
             updatePlayerList();
         }
+    });
+
+    categoryFilter.addEventListener('change', () => {
+        console.log("categoryFilter change");
+        const selectedCategory = categoryFilter.value;
+        if (selectedCategory === 'all') {
+            filteredPlayers = Array.from(players);
+        } else {
+            filteredPlayers = Array.from(players).filter(player => {
+                const categories = player.getAttribute('data-categories').split(',');
+                return categories.includes(selectedCategory);
+            });
+        }
+        currentPage = 1;
+        updatePlayerList();
     });
 
     updatePlayerList();
